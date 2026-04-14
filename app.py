@@ -11,26 +11,85 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    body {
-        background-color: #121212;   /* Dark background */
-        color: #e0e0e0;              /* Light text */
-    }
-    .stButton>button {
-        background-color: #0f4c75;   /* Custom button color */
+    .stApp {
+        background-color: #0b1f3a; /* dark blue */
         color: white;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: bold;
     }
-    .stTextInput>div>input, .stTextArea>div>textarea {
-        background-color: #1b262c;
-        color: #bbe1fa;
-        border-radius: 5px;
+    /* Sidebar background */
+    section[data-testid="stSidebar"] {
+        background-color: #081a2b !important;
     }
+
+    /* Sidebar text */
+    section[data-testid="stSidebar"] * {
+        color: white !important;
+    }
+
+        /* Risk level badges */
+        .high-risk {
+            background-color: #FF0000; /* Red */
+            color: red ;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 0 10px #FF0000;
+        }
+        .medium-risk {
+            background-color: #FFA500; /* Orange */
+            color: black;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 0 10px #FFA500;
+        }
+        .low-risk {
+            background-color: #FFFF00; /* Yellow */
+            color: black;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 0 10px #FFFF00;
+        }
+        .safe-risk {
+            background-color: #00FF00; /* Green */
+            color: black;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00FF00;
+        }
+        stTabs [role="tab"] {
+            background-color: #001f4d; /* Navy shade */
+            color: white;
+            border-radius: 6px;
+            padding: 8px;
+            margin-right: 6px;
+        }
+        .stTabs [role="tab"][aria-selected="true"] {
+            background-color: #004080; /* Highlighted dark blue */
+            font-weight: bold;
+            box-shadow: 0 0 8px #00FFFF;
+        }
+
+        /* Buttons */
+        .stButton>button {
+            background-color: #004080;
+            color: white;
+            border-radius: 6px;
+            border: none;
+            padding: 8px 16px;
+            font-weight: bold;
+            box-shadow: 0 0 8px #00FFFF;
+        }
+        .stButton>button:hover {
+            background-color: #0066cc;
+            box-shadow: 0 0 12px #00FFFF;
+        }
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 st.sidebar.title("Detection Engines")
 st.sidebar.write("• Heuristic / Lexical Analysis — always active")
