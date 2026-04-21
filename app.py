@@ -1,5 +1,12 @@
 import streamlit as st
 import requests
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Hello, ThreatLens!"
+
 
 st.set_page_config(
     page_title="ThreatLens – PhishGuard AI",
