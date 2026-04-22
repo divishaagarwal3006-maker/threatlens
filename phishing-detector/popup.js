@@ -1,18 +1,22 @@
-document.getElementById("results").innerText = "Scanning current page...";
+document.getElementById("scanBtn").addEventListener("click", async () => {
+  // Get the current tab
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  let url = tab.url;
 
-// Example: send message to content script
-chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-  chrome.scripting.executeScript({
-    target: {tabId: tabs[0].id},
-    func: () => {
-      return [...document.querySelectorAll("a")].map(a => a.href);
-    }
-  }, (results) => {
-    const links = results[0].result;
-    let suspicious = links.filter(l => l.includes("suspicious.com"));
-    document.getElementById("results").innerHTML =
-      suspicious.length > 0
-        ? `<span class="suspicious">⚠️ Found suspicious links!</span>`
-        : `<span class="safe">✅ No suspicious links detected.</span>`;
-  });
+  // Call your backend
+  try {
+    let response = await fetch("http://127.0.0.1:5000/scan", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url: url })
+    });
+
+    let data = await response.json();
+
+    // Show result in popup
+    document.getElementById("result").textContent =
+      `Risk: ${data.risk} | Reason: ${data.reason}`;
+  } catch (err) {
+    document.getElementById("result").textContent = "Error: " + err.message;
+  }
 });
