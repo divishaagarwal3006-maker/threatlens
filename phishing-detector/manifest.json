@@ -1,20 +1,30 @@
 {
   "manifest_version": 3,
-  "name": "Phishing Detector",
+  "name": "ThreatLens Extension",
   "version": "1.0",
-  "description": "Detects suspicious links in emails and webpages.",
-  "permissions": ["storage", "tabs", "activeTab"],
-  "background": {
-    "service_worker": "background.js"
-  },
+  "description": "Detects phishing emails and URLs",
+  "permissions": ["activeTab", "scripting", "tabs"],
+  "host_permissions": ["<all_urls>"],
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icons/icon48.png"
+    "default_icon": {
+      "16": "icons/image.png",
+      "48": "icons/image.png",
+      "128": "icons/image.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"]
     }
-  ]
+  ],
+  "icons": {
+    "16": "icons/image.png",
+    "48": "icons/image.png",
+    "128": "icons/image.png"
+  }
 }
