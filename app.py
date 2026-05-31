@@ -115,7 +115,7 @@ tab1, tab2, tab3 = st.tabs(["Single URL Scan", "Batch URL Scan", "Email Scan"])
 with tab1:
     url = st.text_input("Enter a URL to scan", key="single_url")
     if st.button("Scan URL", key="scan_single"):
-        response = requests.post("http://localhost:5000/scan_url", json={"url": url})
+        response = requests.post("https://threatlens-j2nn.onrender.com/scan_url", json={"url": url})
         result = response.json()
         st.subheader(f"Risk Level: {result['risk']} | Score: {result['score']}/100")
 
@@ -131,7 +131,7 @@ with tab2:
     urls = st.text_area("Paste multiple URLs (one per line)", key="batch_urls")
     if st.button("Scan Batch", key="scan_batch"):
         for u in urls.splitlines():
-            response = requests.post("http://localhost:5000/scan_url", json={"url": u})
+            response = requests.post("https://threatlens-j2nn.onrender.com/scan_url", json={"url": u})
             result = response.json()
             if result['risk'] == "HIGH":
                 st.error(f"{u} → HIGH ({result['score']}) | Reason: {result['reason']}")
@@ -145,7 +145,7 @@ with tab2:
 with tab3:
     email_text = st.text_area("Paste Email Text", key="email_input")
     if st.button("Scan Email", key="scan_email"):
-        response = requests.post("http://localhost:5000/scan_email", json={"text": email_text})
+        response = requests.post("https://threatlens-j2nn.onrender.com/scan_email", json={"text": email_text})
         result = response.json()
         st.subheader(f"Email classified as → {result['risk']} ({result['score']})")
 
@@ -166,7 +166,7 @@ with col2:
         if urls:
             for url in urls.splitlines():
                 response = requests.post(
-                    "http://localhost:5000/scan_url",
+                    "https://threatlens-j2nn.onrender.com/scan_url",
                     json={"url": url}
                 )
                 result = response.json()
