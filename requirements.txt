@@ -1,7 +1,6 @@
 flask
-streamlit
+flask-cors
 requests
+gunicorn
+streamlit
 scikit-learn
-pandas
-numpy
-joblib
