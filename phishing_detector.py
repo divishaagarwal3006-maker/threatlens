@@ -2,6 +2,8 @@ import requests
 import re
 import os
 from urllib.parse import urlparse
+import joblib
+ML_MODEL = joblib.load("email_model.pkl") if os.path.exists("email_model.pkl") else None
 
 API_KEY = os.environ.get("GOOGLE_API_KEY")
 
@@ -214,6 +216,16 @@ def email_model_score(text: str) -> int:
     # ── EXCESSIVE EXCLAMATION (+10) ──
     if text.count('!') >= 3:
         score += 10
+
+    # ── ML MODEL BOOST ──
+    if ML_MODEL is not None:
+        try:
+            proba = ML_MODEL.predict_proba([text])[0]
+            prediction = ML_MODEL.predict([text])[0]
+            if prediction == 1:
+                score += int(max(proba) * 30)
+        except:
+            pass
 
     return min(score, 100)
 
