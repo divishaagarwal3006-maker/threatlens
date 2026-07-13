@@ -21,6 +21,9 @@ heuristics, and Google Safe Browsing API.
 
 ---
 
+<img width="1915" height="1025" alt="image" src="https://github.com/user-attachments/assets/1f3d4699-90e2-4845-9503-65fbd01ef748" />
+
+
 ## 📁 Project Structure
 ---
 hreatlens/
