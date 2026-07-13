@@ -114,11 +114,13 @@ tab1, tab2, tab3 = st.tabs(["Single URL Scan", "Batch URL Scan", "Email Scan"])
 
 with tab1:
     url = st.text_input("Enter a URL to scan", key="single_url")
-if st.button("Scan URL", key="scan_single"):
-    response = requests.post("https://threatlens-j2nn.onrender.com/scan_url", json={"url": url})
-    st.write("STATUS:", response.status_code)
-    st.write("BODY:", response.text)
-    result = response.json()
+    if st.button("Scan URL", key="scan_single"):
+        response = requests.post("https://threatlens-j2nn.onrender.com/scan_url", json={"url": url})
+        st.write("STATUS:", response.status_code)
+        st.write("BODY:", response.text)
+        result = response.json()
+        st.subheader(f"Risk Level: {result['risk']} | Score: {result['score']}/100")
+
         # NEW: Show reason
         st.write(f"Reason: {result['reason']}")
 
@@ -153,32 +155,10 @@ with tab3:
         st.write(f"Reason: {result['reason']}")
 
         if result['risk'] == "HIGH":
-            st.error("Suspicious email content detected!")
+            st.error("This email looks like a phishing attempt!")
+        elif result['risk'] == "MEDIUM":
+            st.warning("This email has some suspicious signs.")
+        elif result['risk'] == "LOW":
+            st.info("This email has minor risk indicators.")
         else:
-            st.success("No phishing indicators found.")
-
-
-col1, col2 = st.columns([2,1])
-with col1:
-    urls = st.text_area("Paste URLs (one per line)", key="url_input")
-with col2:
-    if st.button("Scan URLs", key="scan_button"):
-        if urls:
-            for url in urls.splitlines():
-                response = requests.post(
-                    "https://threatlens-j2nn.onrender.com/scan_url",
-                    json={"url": url}
-                )
-                result = response.json()
-
-                # Color-coded results + reason
-                if result['risk'] == "HIGH":
-                    st.error(f"{result['url']} → HIGH ({result['score']}) | Reason: {result['reason']}")
-                elif result['risk'] == "MEDIUM":
-                    st.warning(f"{result['url']} → MEDIUM ({result['score']}) | Reason: {result['reason']}")
-                elif result['risk'] == "LOW":
-                    st.info(f"{result['url']} → LOW ({result['score']}) | Reason: {result['reason']}")
-                else:
-                    st.success(f"{result['url']} → SAFE ({result['score']}) | Reason: {result['reason']}")
-
-
+            st.success("This email looks safe.")
