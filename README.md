@@ -107,6 +107,15 @@ streamlit run app.py
 - **API:** Google Safe Browsing v4
 - **Deployment:** Vercel (frontend)
 
+  ---
+
+## 🚀 Future Improvements
+- Add support for detecting malicious QR codes
+- Integrate real-time email phishing scanning
+- Add multi-language support for the browser extension
+- Improve ML model accuracy with a larger training dataset
+- Add a dashboard to track historical scan results
+
 ---
 
 ## 👩‍💻 Author
