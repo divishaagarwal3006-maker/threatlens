@@ -1,12 +1,5 @@
 import streamlit as st
 import requests
-from flask import Flask
-app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return "Hello, ThreatLens!"
-
 
 st.set_page_config(
     page_title="ThreatLens – PhishGuard AI",
@@ -116,12 +109,8 @@ with tab1:
     url = st.text_input("Enter a URL to scan", key="single_url")
     if st.button("Scan URL", key="scan_single"):
         response = requests.post("https://threatlens-j2nn.onrender.com/scan_url", json={"url": url})
-        st.write("STATUS:", response.status_code)
-        st.write("BODY:", response.text)
         result = response.json()
         st.subheader(f"Risk Level: {result['risk']} | Score: {result['score']}/100")
-
-        # NEW: Show reason
         st.write(f"Reason: {result['reason']}")
 
         if result['risk'] == "HIGH":
@@ -150,8 +139,6 @@ with tab3:
         response = requests.post("https://threatlens-j2nn.onrender.com/scan_email", json={"text": email_text})
         result = response.json()
         st.subheader(f"Email classified as → {result['risk']} ({result['score']})")
-
-        # NEW: Show reason
         st.write(f"Reason: {result['reason']}")
 
         if result['risk'] == "HIGH":
