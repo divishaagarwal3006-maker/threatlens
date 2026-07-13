@@ -114,11 +114,11 @@ tab1, tab2, tab3 = st.tabs(["Single URL Scan", "Batch URL Scan", "Email Scan"])
 
 with tab1:
     url = st.text_input("Enter a URL to scan", key="single_url")
-    if st.button("Scan URL", key="scan_single"):
-        response = requests.post("https://threatlens-j2nn.onrender.com/scan_url", json={"url": url})
-        result = response.json()
-        st.subheader(f"Risk Level: {result['risk']} | Score: {result['score']}/100")
-
+if st.button("Scan URL", key="scan_single"):
+    response = requests.post("https://threatlens-j2nn.onrender.com/scan_url", json={"url": url})
+    st.write("STATUS:", response.status_code)
+    st.write("BODY:", response.text)
+    result = response.json()
         # NEW: Show reason
         st.write(f"Reason: {result['reason']}")
 
