@@ -10,6 +10,8 @@ heuristics, and Google Safe Browsing API.
 
 ---
 
+
+
 ## 🚀 Features
 
 - 🔍 **URL Scanning** — Detects phishing URLs using heuristics + Google Safe Browsing API
