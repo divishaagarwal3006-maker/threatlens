@@ -10,6 +10,8 @@ heuristics, and Google Safe Browsing API.
 
 ---
 
+**Live demo:** https://threatlens-mhfahxr6rfqsqjjuulhyby.streamlit.app/
+
 
 
 ## 🚀 Features
