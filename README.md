@@ -45,6 +45,7 @@ hreatlens/
 ├── emails.csv                   # Training dataset
 └── requirements.txt             # Python dependencies
 
+
 ## 🌐 Browser Extension Setup
 
 ### Install in Edge / Chrome
